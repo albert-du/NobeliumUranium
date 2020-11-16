@@ -3,10 +3,11 @@ This script runs the application using a development server.
 It contains the definition of routes and views for the application.
 """
 from chatterbot import ChatBot
-from chatterbot.trainers import ChatterBotCorpusTrainer
+from chatterbot.trainers import ChatterBotCorpusTrainer, ListTrainer
 import threading
 import sys
 import time
+import json
 from flask import Flask
 from flask import request
 app = Flask(__name__)
@@ -14,6 +15,15 @@ app = Flask(__name__)
 # Make the WSGI interface available at the top level so wfastcgi can get it.
 wsgi_app = app.wsgi_app
 
+trainerbot = ChatBot(
+        'Nobelium Uranium',
+        logic_adaptors=[
+            'chatterbot.logic.BestMatch',
+            'chatterbot.logic.MathmaticalEvaluation'
+        ]
+    )
+
+listTrainer = ListTrainer(trainerbot)
 
 waitingChatBot = ChatBot(
     'Nobelium Uranium',
@@ -23,6 +33,8 @@ waitingChatBot = ChatBot(
     ],
     read_only=True
 )
+
+
 
 def NewChatBot ():
     global waitingChatBot
@@ -65,17 +77,19 @@ def response():
     print("B")
     return str(botresponse)
 
+@app.route("/train", methods = ['POST'])
+def train():
+    try:
+        data: list = json.loads(request.form['data'])
+        listTrainer.train(data)        
+        return 200
+    except:
+        return 500  
 
 @app.route("/autolearn/", methods = ['GET'])
-def teach():
-    chatbot = ChatBot(
-        'Nobelium Uranium',
-        logic_adaptors=[
-            'chatterbot.logic.BestMatch',
-            'chatterbot.logic.MathmaticalEvaluation'
-        ]
-    )
-    trainer = ChatterBotCorpusTrainer(chatbot)
+def autoteach():
+    global trainerbot
+    trainer = ChatterBotCorpusTrainer(trainerbot)
     trainer.train('chatterbot.corpus.english')
     return "yes"
 
