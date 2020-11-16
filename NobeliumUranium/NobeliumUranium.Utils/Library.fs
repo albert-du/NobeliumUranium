@@ -32,6 +32,6 @@ module Network =
             |]
             |> Array.concat
             |> Array.sort
-            |> fun portArray -> ( Array.find (fun i -> portArray.Contains(i) |> not ) [|1000 .. 65535|] )
+            |> fun portArray -> ( Array.find (fun i -> portArray.Contains(i) |> not ) [|startingPort .. int <| UInt16.MaxValue|] )
         with 
             | _ -> 0
