@@ -29,16 +29,16 @@ namespace NobeliumUranium.Bot.Services
             if (port == 0)
                 throw new Exception("No open port could be found");
 
-            var engine_file = Path.Combine(chatbotStartFolder, chatbotStartFile);
+            var dialogEngine = Path.Combine(chatbotStartFolder, chatbotStartFile);
             // ensure the file and environment exist
             if (!Directory.Exists(Path.Combine(chatbotStartFolder, "env"))) throw new FileNotFoundException("Could not find the Python Virtual Environment");
-            if (!File.Exists(engine_file)) throw new FileNotFoundException("Could not find the Chatbot Dialog engine file");
+            if (!File.Exists(dialogEngine)) throw new FileNotFoundException("Could not find the Chatbot Dialog engine file");
 
             using (Process myProcess = new Process())
             {
                 var isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
                 myProcess.StartInfo.FileName = Path.Combine(chatbotStartFolder, "env", isWindows ? "Scripts" : "bin", isWindows ? "python" : "python3");
-                myProcess.StartInfo.Arguments = $"{engine_file} {port}";
+                myProcess.StartInfo.Arguments = $"{dialogEngine} {port}";
                 myProcess.StartInfo.CreateNoWindow = false;
                 myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
                 myProcess.Start();
