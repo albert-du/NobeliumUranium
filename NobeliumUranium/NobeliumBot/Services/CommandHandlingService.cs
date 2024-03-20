@@ -53,11 +53,8 @@ namespace NobeliumUranium.Bot.Services
             {
                 using (context.Channel.EnterTypingState())
                 {
-                    Console.WriteLine("1");
                     var filteredMessage = Utils.Preprocessing.FilterUserMessage(message.Content);
-                    Console.WriteLine("2");
-                    ; var response = await _dialog.GetChatBotResponseAsync(filteredMessage, context.Channel.Id.ToString());
-                    Console.WriteLine("3");
+                    var response = await _dialog.GetChatBotResponseAsync(filteredMessage, context.Channel.Id.ToString());
                     await context.Channel.SendMessageAsync(response);
                 }
                 return;

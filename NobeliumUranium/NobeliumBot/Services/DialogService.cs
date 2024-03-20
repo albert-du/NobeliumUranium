@@ -25,7 +25,7 @@ namespace NobeliumUranium.Bot.Services
         public void Initialize()
         {
             // find an open port and start the dialog engine
-            port = Utils.Network.FindOpenPort(1000);
+            port = Utils.Network.FindOpenPort(10200);
             if (port == 0)
                 throw new Exception("No open port could be found");
 
@@ -53,9 +53,7 @@ namespace NobeliumUranium.Bot.Services
                 {"message", message }
             };
             var content = new FormUrlEncodedContent(values);
-            Console.WriteLine("4");
             var response = await _http.PostAsync($"http://localhost:{port}/response/", content);
-            Console.WriteLine("5");
             return await response.Content.ReadAsStringAsync();
         }
     }

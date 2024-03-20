@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Components.Web 
+@using NobeliumUranium.Web.Services
+@using NobeliumUranium.Web.Models;
+@inject DialogCorpusService CorpusService  
+<h3>Corpora</h3>
+<div class="card-columns">
+    @foreach (var corpus in CorpusService.DialogCorpora)
+    {
+    <div class="card">
+        <h5 class="card-title text-center">@corpus.Title</h5>
+        <div class="card-body">
+            <h6>@corpus.Description</h6>
+            <p>
+                <button @onclick="(e => { SelectCorpus(corpus.Title); })" data-toggle="modal" data-target="#corpusModal" class="btn btn-primary">View</button>
+                <button @onclick="(e => SelectCorpus(corpus.Title))" data-toggle="modal" data-target="#corpusModal" class="btn btn-primary">View</button>
+            </p>
+        </div>
+    </div>
+    }
+</div>
+@code {
+    enum ModalType
+    {
+        View,
+        Edit
+    }
+    DialogCorpus selectedCorpus;
+    string selectedCorpusTitle;
+
+    void SelectCorpus(string title)
+    {
+        selectedCorpusTitle = title;
+        selectedCorpus = CorpusService.DialogCorpora.First(x => x.Title == title);
+    }
+}

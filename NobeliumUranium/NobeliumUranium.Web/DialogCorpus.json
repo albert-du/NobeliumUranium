@@ -1,0 +1,32 @@
+[
+  {
+    "Title": "Set the Corpus title here",
+    "Description": "Create your own Dialog Corpora",
+    "Conversations": [
+      [
+        "Hi",
+        "Hello",
+        "How are you doing?"
+      ],
+      [
+        "Hi what\u0027s your name",
+        "I\u0027m Nobelium Uranium, What\u0027s your name"
+      ]
+    ]
+  },
+  {
+    "Title": "Set the Corpus title here 2",
+    "Description": "Create your own Dialog Corpora",
+    "Conversations": [
+      [
+        "Hi",
+        "Hello",
+        "How are you doing?"
+      ],
+      [
+        "Hi what\u0027s your name",
+        "I\u0027m Nobelium Uranium, What\u0027s your name"
+      ]
+    ]
+  }
+]

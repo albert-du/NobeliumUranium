@@ -1,0 +1,45 @@
+﻿@page
+@model NobeliumUranium.Web.Pages.TrainingModel
+@{
+    ViewData["Title"] = "Training";
+}
+@using NobeliumUranium.Web.Components 
+<h1>@ViewData["Title"]</h1>
+<div class="container" style="align-content: center">
+    <div class="row">
+        <div class="col">
+            <div class="card text-white mb-3" style="max-width: 18rem; background-color: dodgerblue; border-radius: 10%">
+                <div class="card-body">
+                    <h4 class="card-title">Create Training Data</h4>
+                    <h6 class="card-subtitle mb-2 text-white-50">Create Training Data</h6>
+                    <p class="card-text">Create a dialog corpus. Train the chatbot with input and response data.</p>
+                    <a target="_blank" asp-page="/Training/CreateDialogCorpus" class="btn btn-primary" style="border-radius: 10%">Import Data</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white" style="max-width: 18rem; background-color: fuchsia;  border-radius: 10%">
+                <div class="card-body">
+                    <h4 class="card-title">Train</h4>
+                    <h6 class="card-subtitle mb-2 text-white-50">Train chatbot model </h6>
+                    <p class="card-text">Train the chatbot with dialog corpus data.</p>
+                    <a class="btn btn-primary" style="border-radius: 10%">Start Training</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white mb-3" style="background-color: coral ; max-width: 18rem;  border-radius: 10%">
+                <div class="card-body">
+                    <h4 class="card-title">Testing</h4>
+                    <h6 class="card-subtitle mb-2 text-muted">Test the chatbot model</h6>
+                    <p class="card-text">Train the chatbot with input and response data.</p>
+                    <a class="btn btn-primary" style="border-radius: 10%">Start Testing</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<h2>Corpus</h2>
+@(await Html.RenderComponentAsync<CorpusList>(RenderMode.ServerPrerendered))
+<script src="_framework/blazor.server.js"></script>

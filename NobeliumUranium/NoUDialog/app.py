@@ -61,20 +61,18 @@ def hello():
     """Renders a sample page."""
     return "Hello World!"
 
-@app.route("/response/", methods = ['POST'])
+@app.route("/response", methods = ['POST'])
 def response():
-    print("A")
     sending_channel = request.form['sender']
     message = request.form['message']
     if sending_channel not in chatbots:
         #create and add a new bot
         chatbots[sending_channel] = NewChatBot()
         #schedule its destruction
-        thread = threading.Thread(target=remove_bot, args=(sending_channel,))
-        thread.start()
+        #thread = threading.Thread(target=remove_bot, args=(sending_channel,))
+        #thread.start()
     the_bot = chatbots[sending_channel]
     botresponse = the_bot.get_response(message)
-    print("B")
     return str(botresponse)
 
 @app.route("/train", methods = ['POST'])
@@ -86,7 +84,7 @@ def train():
     except:
         return 500  
 
-@app.route("/autolearn/", methods = ['GET'])
+@app.route("/autolearn", methods = ['GET'])
 def autoteach():
     global trainerbot
     trainer = ChatterBotCorpusTrainer(trainerbot)
